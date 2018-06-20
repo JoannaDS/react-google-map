@@ -1,41 +1,19 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom'
+import './App.css';
+import { GoogleApiWrapper } from 'google-maps-react'
+import MapContainer from './MapContainer'
 
-export default class MapContainer extends Component {
-
-  componentDidUpdate() {
-    this.loadMap();
-  }
-
-  loadMap() {
-    if (this.props && this.props.google) { 
-      const {google} = this.props; 
-      const maps = google.maps; 
-
-      const mapRef = this.refs.map; 
-      const node = ReactDOM.findDOMNode(mapRef); 
-
-      const mapConfig = Object.assign({}, {
-        center: {lat: 40.7485722, lng: -74.0068633}, 
-        zoom: 11, 
-        mapTypeId: 'roadmap' 
-      })
-
-      this.map = new maps.Map(node, mapConfig); 
-
-    }
-  }
-
+class App extends Component {
   render() {
-    const style = { 
-      width: '90vw', 
-      height: '75vh' 
-    }
-
-    return ( 
-      <div ref="map" style={style}>
-        loading map...
+    return (
+      <div>
+        <h1> Google Maps API + React </h1>
+        <MapContainer google={this.props.google} />
       </div>
-    )
+    );
   }
 }
+
+export default GoogleApiWrapper({
+  apiKey: 'AIzaSyAU6LPIRtQj-VhbJM3X8C6BEGyXTTlffHE',
+})(App)
